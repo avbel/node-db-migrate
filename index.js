@@ -1,3 +1,4 @@
+require('coffee-script');
 var driver = require('./lib/driver');
 var Migrator = require('./lib/migrator');
 
