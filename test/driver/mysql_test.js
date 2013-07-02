@@ -17,7 +17,10 @@ driver.connect({ driver: 'mysql', database: 'db_migrate_test', user:'root' }, fu
           dt: dataType.DATE_TIME,
           ts: dataType.TIMESTAMP,
           bin: dataType.BINARY,
-          bl: dataType.BOOLEAN
+          bl: dataType.BOOLEAN,
+          num1: dataType.NUMERIC,
+          num2: {type: dataType.NUMERIC, digits: 24, decimals: 3},
+          num3: {type: dataType.NUMERIC, digits: 21, decimals: 4}
         }, this.callback);
       },
 
@@ -111,7 +114,27 @@ driver.connect({ driver: 'mysql', database: 'db_migrate_test', user:'root' }, fu
           var column = findByName(columns, 'bl');
           assert.equal(column.getDataType(), 'TINYINT');
           assert.equal(column.isNullable(), true);
+        },
+
+        'that has numeric num1 column': function(err, columns) {
+          var column = findByName(columns, 'num1');
+          assert.equal(column.getDataType(), 'NUMERIC');
+        },
+
+        'that has numeric num2 column': function(err, columns) {
+          var column = findByName(columns, 'num2');
+          assert.equal(column.getDataType(), 'NUMERIC');
+          assert.equal(column.digits, 24);
+          assert.equal(column.decimals, 3);
+        },
+
+        'that has numeric num3 column': function(err, columns) {
+          var column = findByName(columns, 'num3');
+          assert.equal(column.getDataType(), 'NUMERIC');
+          assert.equal(column.digits, 21);
+          assert.equal(column.decimals, 4);
         }
+
       }
     }
   }).addBatch({
