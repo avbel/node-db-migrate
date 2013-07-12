@@ -19,3 +19,6 @@ exports.createMigration = function(title, migrationsDir, callback) {
     callback(null, migration);
   });
 };
+
+exports.log = require('./lib/log');
+
